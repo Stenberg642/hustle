@@ -36,7 +36,7 @@ def apply_weekly_penalty(user):
         current_week = now.strftime("%Y-%W")
 
         if user.last_penalty_week != current_week:
-            if user.weekly_streak < 5:
+            if user.weekly_streak < 4:
                 user.debt += 10
                 user.last_penalty_week = current_week
                 return True
@@ -65,7 +65,7 @@ def dashboard():
     reset_weekly_streak_if_monday(current_user)
 
     if apply_weekly_penalty(current_user):
-        flash("You owe the group R10 (less than 5 check-ins this week).", "danger")
+        flash("You owe the group R10 (less than 4 check-ins this week).", "danger")
 
     db.session.commit()
 
