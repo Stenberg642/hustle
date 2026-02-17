@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <h2>Leaderboard</h2>
+
+    {% for user in users %}
+    <div class="card leaderboard-card">
+        <strong>{{ user.username }}</strong>
+        🔥 {{ user.current_streak }} days
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+

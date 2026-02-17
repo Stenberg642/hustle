@@ -1,0 +1,110 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+/* Make buttons same size */
+.btn-primary,
+.btn-danger {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+    min-width: 110px;
+}
+
+/* Fullscreen image modal */
+#imageModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+}
+
+#imageModal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+}
+
+.tapable-img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    margin: 15px 0;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.tapable-img:hover {
+    opacity: 0.9;
+}
+</style>
+
+<div class="container">
+
+    <h2>Admin Review</h2>
+
+    {% if not pending %}
+        <div class="card">
+            <p>No pending check-ins.</p>
+        </div>
+    {% endif %}
+
+    {% for c in pending %}
+    <div class="card">
+
+        <strong>{{ c.user.username }}</strong>
+        <p>{{ c.content }}</p>
+
+        <!-- Proof Image -->
+        <img 
+            src="{{ url_for('main.uploaded_file', filename=c.proof_file) }}" 
+            alt="Proof Image"
+            class="tapable-img"
+            onclick="openImage(this.src)"
+        >
+
+        <!-- Action Buttons -->
+        <div style="display:flex; gap:10px;">
+            <a href="{{ url_for('main.approve_checkin', checkin_id=c.id) }}" 
+               class="btn-primary">
+                Approve
+            </a>
+
+            <a href="{{ url_for('main.reject_checkin', checkin_id=c.id) }}" 
+               class="btn-danger">
+                Reject
+            </a>
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+<!-- Fullscreen Modal -->
+<div id="imageModal" onclick="closeImage()">
+    <img id="modalImg">
+</div>
+
+<script>
+function openImage(src) {
+    const modal = document.getElementById("imageModal");
+    const img = document.getElementById("modalImg");
+    img.src = src;
+    modal.style.display = "flex";
+}
+
+function closeImage() {
+    document.getElementById("imageModal").style.display = "none";
+}
+</script>
+
+{% endblock %}
+

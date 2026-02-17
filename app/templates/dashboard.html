@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <!-- Top Bar -->
+    <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+            <strong>{{ current_user.username }}</strong>
+        </div>
+        <div>
+            <a href="{{ url_for('main.leaderboard') }}" 
+               class="btn-primary" 
+               style="width:auto; padding:8px 14px; text-decoration:none;">
+                Leaderboard
+            </a>
+
+            <a href="{{ url_for('auth.logout') }}" 
+               class="btn-danger" 
+               style="text-decoration:none;">
+                Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        🔥 Current Streak: {{ current_user.current_streak }}
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        🏆 Best Streak: {{ current_user.longest_streak }}
+    </div>
+
+    <!-- Submit Proof -->
+    <div class="card">
+        <h3 class="submit-title">Submit Proof</h3>
+
+        <form method="POST" enctype="multipart/form-data">
+            <textarea name="content" required placeholder="What did you do today?"></textarea>
+
+            <input type="file" name="proof" required>
+
+            <button type="submit" class="btn-primary">
+                Submit
+            </button>
+        </form>
+    </div>
+
+    <!-- History -->
+    <h3 style="margin-top:30px;">Your History</h3>
+
+    {% for c in checkins %}
+    <div class="card">
+        <strong>{{ c.checkin_date }}</strong>
+        <p>{{ c.content }}</p>
+        <span class="badge {{ c.status }}">{{ c.status }}</span>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Auto refresh every 60 seconds
+    // Stops refreshing after 22:00
+    function shouldRefresh() {
+        const now = new Date();
+        return now.getHours() < 22;
+    }
+
+    setInterval(function () {
+        if (shouldRefresh()) {
+            window.location.reload();
+        }
+    }, 60000);
+</script>
+{% endblock %}
+

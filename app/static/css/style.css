@@ -1,0 +1,280 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #2b2b45);
+    color: #fff;
+    min-height: 100vh;
+}
+
+.page-wrapper {
+    padding: 40px 20px;
+}
+
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: #111;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0, 195, 255, 0.2);
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+}
+
+.auth-card h2 {
+    margin-bottom: 20px;
+}
+
+.auth-card input,
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 8px;
+    background: #1e1e1e;
+    color: white;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #00c3ff, #0072ff);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Danger button (admin reject) */
+.btn-danger {
+    display: inline-block;
+    background: crimson;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    margin-left: 8px;
+}
+
+/* Auth links */
+.auth-links {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.auth-links a {
+    color: #00c3ff;
+    text-decoration: none;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   APP LAYOUT (Dashboard, Admin, Leaderboard)
+========================= */
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.container h2 {
+    margin-bottom: 20px;
+}
+
+.stats {
+    background: #111;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(0,195,255,0.1);
+    font-weight: 500;
+}
+
+/* Cards */
+.card {
+    background: #111;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0,195,255,0.1);
+    animation: fadeIn 0.3s ease;
+}
+
+/* Badge styles */
+.badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.badge.pending {
+    background: orange;
+}
+
+.badge.approved {
+    background: #28a745;
+}
+
+.badge.rejected {
+    background: #dc3545;
+}
+
+/* =========================
+   TABLES (Leaderboard/Admin Table Version)
+========================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #1e1e2f;
+}
+
+tr:nth-child(even) {
+    background: #1a1a2a;
+}
+
+/* =========================
+   FLASH MESSAGES
+========================= */
+
+.flash-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.flash {
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: white;
+    animation: fadeIn 0.3s ease;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.flash.success { background: #28a745; }
+.flash.danger  { background: #dc3545; }
+.flash.info    { background: #17a2b8; }
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.submit-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 18px;
+    margin-top: 0;
+    color: #ffffff;
+}
+
+.card form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+@media (max-width: 600px) {
+
+    .page-wrapper {
+        padding: 25px 15px;
+    }
+
+    /* Make container use full width */
+    .container {
+        max-width: 100%;
+    }
+
+    /* Stack header properly */
+    .header-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .header-right {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+    }
+
+    .header-right a {
+        flex: 1;
+        text-align: center;
+    }
+
+    /* Reduce card padding slightly */
+    .card {
+        padding: 16px;
+    }
+
+    /* Improve textarea usability */
+    textarea {
+        min-height: 110px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    /* Make tables scroll horizontally instead of breaking layout */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    /* Flash messages centered */
+    .flash-container {
+        right: 10px;
+        left: 10px;
+    }
+}
+
