@@ -35,7 +35,6 @@ def create_app():
     app.register_blueprint(leaderboard)
 
     with app.app_context():
-        db.drop_all()
         db.create_all()
 
     return app
